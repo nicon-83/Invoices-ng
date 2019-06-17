@@ -1,0 +1,101 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Create Invoice</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div id="progressBar" style="height: 10px">
+  <mat-progress-bar *ngIf="loading" style="margin: 5px 0" mode="buffer"></mat-progress-bar>
+</div>
+
+<mat-card class="form-card">
+
+  <mat-card-content>
+    <form [formGroup]="invoiceForm">
+
+      <!-- number  direction -->
+      <div class="form-inputs">
+        <mat-form-field>
+          <input matInput placeholder="Number" formControlName="number" required>
+          <mat-error *ngIf="invoiceForm.controls.number.errors">
+            <span *ngIf="invoiceForm.controls.number.errors.minlength">number must be at least {{invoiceForm.controls.number.errors.minlength.requiredLength}}
+              characters</span>
+            <span *ngIf="invoiceForm.controls.number.errors.required">number is <strong>required</strong></span>
+          </mat-error>
+          <button mat-button *ngIf="invoiceForm.controls.number.value" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="invoiceForm.controls.number.setValue('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Direction" formControlName="direction" required>
+          <mat-error *ngIf="invoiceForm.controls.direction.errors">
+            <span
+              *ngIf="invoiceForm.controls.direction.errors.minlength">direction must be at least {{invoiceForm.controls.direction.errors.minlength.requiredLength}}
+              characters</span>
+            <span *ngIf="invoiceForm.controls.direction.errors.required">direction is <strong>required</strong></span>
+          </mat-error>
+          <button mat-button *ngIf="invoiceForm.controls.direction.value" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="invoiceForm.controls.direction.setValue('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <!-- create_date supply_date-->
+      <div class="form-inputs">
+        <mat-form-field>
+          <input matInput [matDatepicker]="createDate" placeholder="Create Date" formControlName="date_created" required>
+          <mat-error *ngIf="invoiceForm.controls.date_created.errors">
+            <span *ngIf="invoiceForm.controls.date_created.errors.required">date_created is <strong>required</strong></span>
+          </mat-error>
+          <mat-datepicker-toggle matSuffix [for]="createDate"></mat-datepicker-toggle>
+          <mat-datepicker #createDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="supplyDate" placeholder="Supply Date" formControlName="date_supply" required>
+          <mat-error *ngIf="invoiceForm.controls.date_supply.errors">
+            <span *ngIf="invoiceForm.controls.date_supply.errors.required">date_supply is <strong>required</strong></span>
+          </mat-error>
+          <mat-datepicker-toggle matSuffix [for]="supplyDate"></mat-datepicker-toggle>
+          <mat-datepicker #supplyDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <!-- due_date comment -->
+      <div class="form-inputs">
+        <mat-form-field>
+          <input matInput [matDatepicker]="dueDate" placeholder="Due Date" formControlName="date_due" required>
+          <mat-error *ngIf="invoiceForm.controls.date_due.errors">
+            <span *ngIf="invoiceForm.controls.date_due.errors.required">date_due is <strong>required</strong></span>
+          </mat-error>
+          <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+          <mat-datepicker #dueDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Comment" formControlName="comment" required>
+          <mat-error *ngIf="invoiceForm.controls.comment.errors">
+            <span
+              *ngIf="invoiceForm.controls.comment.errors.minlength">comment must be at least {{invoiceForm.controls.comment.errors.minlength.requiredLength}}
+              characters</span>
+            <span *ngIf="invoiceForm.controls.comment.errors.required">comment is <strong>required</strong></span>
+          </mat-error>
+          <button mat-button *ngIf="invoiceForm.controls.comment.value" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="invoiceForm.controls.comment.setValue('')">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions style="margin-top: 50px">
+    <div style="display: flex;justify-content: space-between;width: 80%;margin: auto">
+      <button mat-icon-button color="primary" matTooltip="go to Main" (click)="goToMain()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" (click)="saveInvoice()" [disabled]="invoiceForm.invalid">Save</button>
+    </div>
+  </mat-card-actions>
+
+</mat-card>

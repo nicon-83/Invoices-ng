@@ -1,0 +1,70 @@
+table {
+  width: 100%;
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.header-card {
+  padding: 25px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.header-card .mat-card-content {
+  margin-bottom: 0;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-column-date_supply {
+  width: 10%;
+}
+
+.mat-column-number {
+  width: 10%;
+}
+
+.mat-column-direction {
+  width: 12%;
+}
+
+.mat-column-date_created {
+  width: 10%;
+}
+
+.mat-column-date_due {
+  width: 10%;
+}
+
+.mat-column-comment {
+  width: 40%;
+}
+
+.mat-row .mat-column-actions {
+  width: 8%;
+  text-align: center;
+  padding-right: 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 40%;
+}
+
+#table-container {
+  height: 600px;
+  overflow-y: auto;
+}

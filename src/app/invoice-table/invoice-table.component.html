@@ -1,0 +1,80 @@
+<mat-toolbar id="topToolbar" color="primary">
+  <mat-toolbar-row>
+    <span>Invoices</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-card id="headerCard" class="header-card">
+  <mat-card-content>
+    <h2>Actions</h2>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="goToCreate()">Add new</button>
+  </mat-card-actions>
+</mat-card>
+<div id="progressBar" style="height: 10px">
+  <mat-progress-bar *ngIf="loading" style="margin: 5px 0" mode="buffer"></mat-progress-bar>
+</div>
+<mat-card class="example-card">
+  <mat-card-header id="table-toolbar">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="dataFilter" placeholder="Filter">
+      <button mat-button *ngIf="dataFilter" matSuffix mat-icon-button aria-label="Clear" (click)="clearDataFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <span class="spacer"></span>
+    <mat-paginator [pageSizeOptions]="[10,15,20]" showFirstLastButtons></mat-paginator>
+  </mat-card-header>
+  <mat-card-content>
+    <div id="table-container" [style.height]="calcTableHeight()">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Number</th>
+          <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date_created">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Create</th>
+          <td mat-cell *matCellDef="let element"> {{parseDate(element.date_created)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date_supply">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Supply</th>
+          <td mat-cell *matCellDef="let element"> {{parseDate(element.date_supply)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date_due">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Due</th>
+          <td mat-cell *matCellDef="let element"> {{parseDate(element.date_due)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="direction">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Direction</th>
+          <td mat-cell *matCellDef="let element"> {{element.direction}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="comment">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Comment</th>
+          <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" matTooltip="edit invoice" aria-label="edit" (click)="openDialog(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" matTooltip="delete invoice" aria-label="delete" (click)="deleteInvoice(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>
