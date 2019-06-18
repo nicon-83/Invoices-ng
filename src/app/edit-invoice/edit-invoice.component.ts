@@ -17,6 +17,8 @@ export class EditInvoiceComponent implements OnInit {
   dateCreated: Date;
   dateSupply: Date;
   dateDue: Date;
+  minDate = new Date(1970, 0, 1);
+  maxDate = new Date(2030, 0, 1);
 
   invoiceForm = new FormGroup({
     direction: new FormControl('', [Validators.required, Validators.minLength(10)]),

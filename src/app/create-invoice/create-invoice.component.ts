@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Invoice} from '../model/invoice';
 import {InvoicesService} from '../invoices.service';
 import {MatSnackBar} from '@angular/material';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-create-invoice',
@@ -17,12 +17,14 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
   loading = false;
+  minDate = new Date(1970, 0, 1);
+  maxDate = new Date(2030, 0, 1);
   invoiceForm = new FormGroup({
     direction: new FormControl('', [Validators.required, Validators.minLength(10)]),
     number: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    date_created: new FormControl({value: ''}, [Validators.required]),
-    date_due: new FormControl({value: ''}, [Validators.required]),
-    date_supply: new FormControl({value: ''}, [Validators.required]),
+    date_created: new FormControl('', [Validators.required]),
+    date_due: new FormControl('', [Validators.required]),
+    date_supply: new FormControl('', [Validators.required]),
     comment: new FormControl('', [Validators.required, Validators.minLength(25)]),
   });
 
@@ -60,4 +62,39 @@ export class CreateInvoiceComponent implements OnInit {
   }
 
 }
+
+// function dateValidator(control: AbstractControl): { [key: string]: any | null } {
+//   const value: string = control.value;
+//   if (value && typeof value === 'string') {
+//     const match = value.match(/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/);
+//     if (!match) {
+//       return {dateInvalid: true};
+//     }
+//     const date = new Date(`${match[3]}-${match[1]}-${match[2]}`);
+//     if (isNaN(date.getTime())) {
+//       return {dateInvalid: true};
+//     }
+//   }
+//   return null;
+// }
+
+// export class DateValidator {
+//
+//   // validate MM/DD/YYYY
+//   static date(c: AbstractControl): { [key: string]: boolean } {
+//     const value = c.value;
+//     if (value && typeof value === 'string') {
+//       const match = value.match(/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/);
+//       if (!match) {
+//         return {'dateInvalid': true};
+//       }
+//       const date = new Date(`${match[3]}-${match[1]}-${match[2]}`);
+//       if (isNaN(date.getTime())) {
+//         return {'dateInvalid': true};
+//       }
+//     }
+//     return null;
+//   }
+//
+// }
 
